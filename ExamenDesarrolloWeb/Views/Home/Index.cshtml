@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+}
+
+@Model List<ExamenBack.Model.Relojes>
+
+
+@{
+    ViewData["Title"] = "Tienda de Relojes";
+}
+
+@{
+  ViewData["Title"] = "Tienda de Relojes";
+}
+
+@{
+  ViewData["Title"] = "Tienda de Relojes";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@ViewData["Title"]</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+      }
+      .hero-section {
+          background-image: url('https://example.com/relojes-banner.jpg');
+          background-size: cover;
+          color: white;
+          padding: 100px 0;
+          text-align: center;
+      }
+      .hero-section h1 {
+          font-size: 3em;
+      }
+      .btn-shop-now {
+          background-color: #007bff;
+          color: white;
+          padding: 15px 30px;
+          font-size: 1.2em;
+          border: none;
+          border-radius: 5px;
+      }
+      .product-card {
+          margin: 20px;
+      }
+      .product-card img {
+          max-width: 100%;
+          height: auto;
+      }
+      .product-card-title {
+          font-size: 1.5em;
+          margin-top: 10px;
+      }
+      .product-card-price {
+          font-size: 1.2em;
+          color: green;
+      }
+  </style>
+</head>
+
+<body>
+<h1>TIENDA RJ</h1>
+<p>El tiempo al alcance de tus manos</p>
+<div id="carouselExampleFade" class="carousel slide carousel-fade">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+    <img src="~/Media/Relojes/Tommy Hilfiger - Reloj de hombre Tommy Hilfiger 1791476 de silicona a rayas.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+        <img src="~/Media/Relojes/descarga (3).jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+        <img src="~/Media/Relojes/Electronic Devices.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden"></span>
+  </button>
+</div>
+  <!-- Hero Section -->
+  <section class="hero-section">
+      <a href="/productos" class="btn-shop-now">Compra Porfis</a>
+  </section>
+  
+
+  <!-- Featured Products -->
+  <div class="container mt-5">
+      <h2 class="text-center">Nuestros Relojes Más Populares</h2>
+      <div class="row">
+          <div class="col-md-4">
+              <div class="card product-card">
+                  <img src="https://example.com/reloj1.jpg" alt="Reloj 1">
+                  <div class="card-body">
+                      <h5 class="product-card-title">Reloj Clásico</h5>
+                      <p class="product-card-price">$150.00</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="card product-card">
+                  <img src="https://example.com/reloj2.jpg" alt="Reloj 2">
+                  <div class="card-body">
+                      <h5 class="product-card-title">Reloj Deportivo</h5>
+                      <p class="product-card-price">$200.00</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="card product-card">
+                  <img src="https://example.com/reloj3.jpg" alt="Reloj 3">
+                  <div class="card-body">
+                      <h5 class="product-card-title">Reloj de Lujo</h5>
+                      <p class="product-card-price">$500.00</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="text-center mt-5">
+      <p>&copy; 2024 Tienda de Relojes. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TiendaRJModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_registro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DetallesOrden">
+          <Key>
+            <PropertyRef Name="id_detalle_orden" />
+          </Key>
+          <Property Name="id_detalle_orden" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_orden" Type="int" />
+          <Property Name="id_reloj" Type="int" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="precio_unitario" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="subtotal" Type="decimal" Precision="21" Scale="2" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Ordenes">
+          <Key>
+            <PropertyRef Name="id_orden" />
+          </Key>
+          <Property Name="id_orden" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_cliente" Type="int" />
+          <Property Name="fecha_orden" Type="datetime" />
+          <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Pagos">
+          <Key>
+            <PropertyRef Name="id_pago" />
+          </Key>
+          <Property Name="id_pago" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_orden" Type="int" />
+          <Property Name="fecha_pago" Type="datetime" />
+          <Property Name="monto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="metodo_pago" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Relojes">
+          <Key>
+            <PropertyRef Name="id_reloj" />
+          </Key>
+          <Property Name="id_reloj" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="descripcion" Type="text" />
+          <Property Name="precio" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="stock" Type="int" Nullable="false" />
+          <Property Name="imagen_url" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__DetallesO__id_or__5441852A">
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="0..1" />
+          <End Role="DetallesOrden" Type="Self.DetallesOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ordenes">
+              <PropertyRef Name="id_orden" />
+            </Principal>
+            <Dependent Role="DetallesOrden">
+              <PropertyRef Name="id_orden" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetallesO__id_re__5535A963">
+          <End Role="Relojes" Type="Self.Relojes" Multiplicity="0..1" />
+          <End Role="DetallesOrden" Type="Self.DetallesOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relojes">
+              <PropertyRef Name="id_reloj" />
+            </Principal>
+            <Dependent Role="DetallesOrden">
+              <PropertyRef Name="id_reloj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ordenes__id_clie__5165187F">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pagos__id_orden__59FA5E80">
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="0..1" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ordenes">
+              <PropertyRef Name="id_orden" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="id_orden" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TiendaRJModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetallesOrden" EntityType="Self.DetallesOrden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ordenes" EntityType="Self.Ordenes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pagos" EntityType="Self.Pagos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Relojes" EntityType="Self.Relojes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__DetallesO__id_or__5441852A" Association="Self.FK__DetallesO__id_or__5441852A">
+            <End Role="Ordenes" EntitySet="Ordenes" />
+            <End Role="DetallesOrden" EntitySet="DetallesOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetallesO__id_re__5535A963" Association="Self.FK__DetallesO__id_re__5535A963">
+            <End Role="Relojes" EntitySet="Relojes" />
+            <End Role="DetallesOrden" EntitySet="DetallesOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ordenes__id_clie__5165187F" Association="Self.FK__Ordenes__id_clie__5165187F">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pagos__id_orden__59FA5E80" Association="Self.FK__Pagos__id_orden__59FA5E80">
+            <End Role="Ordenes" EntitySet="Ordenes" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TiendaRJModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_registro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Ordenes" Relationship="Self.FK__Ordenes__id_clie__5165187F" FromRole="Clientes" ToRole="Ordenes" />
+        </EntityType>
+        <EntityType Name="DetallesOrden">
+          <Key>
+            <PropertyRef Name="id_detalle_orden" />
+          </Key>
+          <Property Name="id_detalle_orden" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_orden" Type="Int32" />
+          <Property Name="id_reloj" Type="Int32" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="precio_unitario" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="subtotal" Type="Decimal" Precision="21" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Ordenes" Relationship="Self.FK__DetallesO__id_or__5441852A" FromRole="DetallesOrden" ToRole="Ordenes" />
+          <NavigationProperty Name="Relojes" Relationship="Self.FK__DetallesO__id_re__5535A963" FromRole="DetallesOrden" ToRole="Relojes" />
+        </EntityType>
+        <EntityType Name="Ordenes">
+          <Key>
+            <PropertyRef Name="id_orden" />
+          </Key>
+          <Property Name="id_orden" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_cliente" Type="Int32" />
+          <Property Name="fecha_orden" Type="DateTime" Precision="3" />
+          <Property Name="total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK__Ordenes__id_clie__5165187F" FromRole="Ordenes" ToRole="Clientes" />
+          <NavigationProperty Name="DetallesOrden" Relationship="Self.FK__DetallesO__id_or__5441852A" FromRole="Ordenes" ToRole="DetallesOrden" />
+          <NavigationProperty Name="Pagos" Relationship="Self.FK__Pagos__id_orden__59FA5E80" FromRole="Ordenes" ToRole="Pagos" />
+        </EntityType>
+        <EntityType Name="Pagos">
+          <Key>
+            <PropertyRef Name="id_pago" />
+          </Key>
+          <Property Name="id_pago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_orden" Type="Int32" />
+          <Property Name="fecha_pago" Type="DateTime" Precision="3" />
+          <Property Name="monto" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="metodo_pago" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ordenes" Relationship="Self.FK__Pagos__id_orden__59FA5E80" FromRole="Pagos" ToRole="Ordenes" />
+        </EntityType>
+        <EntityType Name="Relojes">
+          <Key>
+            <PropertyRef Name="id_reloj" />
+          </Key>
+          <Property Name="id_reloj" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="stock" Type="Int32" Nullable="false" />
+          <Property Name="imagen_url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DetallesOrden" Relationship="Self.FK__DetallesO__id_re__5535A963" FromRole="Relojes" ToRole="DetallesOrden" />
+        </EntityType>
+        <Association Name="FK__Ordenes__id_clie__5165187F">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetallesO__id_or__5441852A">
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="0..1" />
+          <End Role="DetallesOrden" Type="Self.DetallesOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ordenes">
+              <PropertyRef Name="id_orden" />
+            </Principal>
+            <Dependent Role="DetallesOrden">
+              <PropertyRef Name="id_orden" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetallesO__id_re__5535A963">
+          <End Role="Relojes" Type="Self.Relojes" Multiplicity="0..1" />
+          <End Role="DetallesOrden" Type="Self.DetallesOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relojes">
+              <PropertyRef Name="id_reloj" />
+            </Principal>
+            <Dependent Role="DetallesOrden">
+              <PropertyRef Name="id_reloj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pagos__id_orden__59FA5E80">
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="0..1" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ordenes">
+              <PropertyRef Name="id_orden" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="id_orden" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TiendaRJEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="DetallesOrden" EntityType="Self.DetallesOrden" />
+          <EntitySet Name="Ordenes" EntityType="Self.Ordenes" />
+          <EntitySet Name="Pagos" EntityType="Self.Pagos" />
+          <EntitySet Name="Relojes" EntityType="Self.Relojes" />
+          <AssociationSet Name="FK__Ordenes__id_clie__5165187F" Association="Self.FK__Ordenes__id_clie__5165187F">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetallesO__id_or__5441852A" Association="Self.FK__DetallesO__id_or__5441852A">
+            <End Role="Ordenes" EntitySet="Ordenes" />
+            <End Role="DetallesOrden" EntitySet="DetallesOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetallesO__id_re__5535A963" Association="Self.FK__DetallesO__id_re__5535A963">
+            <End Role="Relojes" EntitySet="Relojes" />
+            <End Role="DetallesOrden" EntitySet="DetallesOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pagos__id_orden__59FA5E80" Association="Self.FK__Pagos__id_orden__59FA5E80">
+            <End Role="Ordenes" EntitySet="Ordenes" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TiendaRJModelStoreContainer" CdmEntityContainer="TiendaRJEntities">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="TiendaRJModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetallesOrden">
+            <EntityTypeMapping TypeName="TiendaRJModel.DetallesOrden">
+              <MappingFragment StoreEntitySet="DetallesOrden">
+                <ScalarProperty Name="id_detalle_orden" ColumnName="id_detalle_orden" />
+                <ScalarProperty Name="id_orden" ColumnName="id_orden" />
+                <ScalarProperty Name="id_reloj" ColumnName="id_reloj" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="precio_unitario" ColumnName="precio_unitario" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ordenes">
+            <EntityTypeMapping TypeName="TiendaRJModel.Ordenes">
+              <MappingFragment StoreEntitySet="Ordenes">
+                <ScalarProperty Name="id_orden" ColumnName="id_orden" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="fecha_orden" ColumnName="fecha_orden" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pagos">
+            <EntityTypeMapping TypeName="TiendaRJModel.Pagos">
+              <MappingFragment StoreEntitySet="Pagos">
+                <ScalarProperty Name="id_pago" ColumnName="id_pago" />
+                <ScalarProperty Name="id_orden" ColumnName="id_orden" />
+                <ScalarProperty Name="fecha_pago" ColumnName="fecha_pago" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="metodo_pago" ColumnName="metodo_pago" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Relojes">
+            <EntityTypeMapping TypeName="TiendaRJModel.Relojes">
+              <MappingFragment StoreEntitySet="Relojes">
+                <ScalarProperty Name="id_reloj" ColumnName="id_reloj" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="imagen_url" ColumnName="imagen_url" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

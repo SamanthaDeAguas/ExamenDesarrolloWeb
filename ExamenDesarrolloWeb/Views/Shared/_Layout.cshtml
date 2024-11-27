@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Proyecto final</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @{
+        var urlHome = Url.Action("Index", "Home");
+        var urlCreateClient = Url.Action("Create", "Clientes");
+        var urlDeleteClient = Url.Action("Delete", "Clientes");
+        var urlEditClient = Url.Action("Edit", "Clientes");
+        var urlIndexClient = Url.Action("Index", "Clientes");
+        var urlDetailsClient = Url.Action("Details", "Clientes");
+
+        var urlCreateRelojes = Url.Action("Create", "Relojes");
+        var urlDeleteRelojes = Url.Action("Delete", "Relojes");
+        var urlEditRelojes = Url.Action("Edit", "Relojes");
+        var urlIndexRelojes = Url.Action("Index", "Relojes");
+        var urlDetailsRelojes = Url.Action("Details", "Relojes");
+    }    
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+
+            <a style="text-decoration: none; color: white; font-size:larger" href="@urlHome"><i class="bi bi-house-fill"></i></a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li> <a style="text-decoration: none; color: white; font-size:larger" href="@urlCreateClient"> <i class="bi bi-person-add"></i>   Crear usuarios  </li></a> 
+                    <li> <a style="text-decoration: none; color: white; font-size:larger" href ="@urlIndexClient"> <i class="bi bi-person-fill"></i>   Ver usuarios  </a></li>
+                    <li><a style="text-decoration: none; color: white; font-size:larger" href="@urlCreateRelojes"> <i class="bi bi-watch"></i>  Crear producto  </a></li>
+                    <li><a style="text-decoration: none; color: white; font-size:larger" href="@urlIndexRelojes"> <i class="bi bi-eye"></i>  Ver productos  </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Samantha De Aguas, Cristian Lemus, Samuel Serrano</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
